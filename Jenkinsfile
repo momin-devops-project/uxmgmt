@@ -14,7 +14,7 @@ pipeline {
                     def DockerCredentialID = 'dockerhub_credentials'
                     def customImage = docker.build("${DockerImage}:${DockerTag}",".")
                     docker.withRegistry('' , DockerCredentialID ) {
-                        dockerBuild.Push()
+                        dockerBuild.push()
                     }
                 }
             }
