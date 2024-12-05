@@ -1,24 +1,23 @@
-pipeline{
+pipeline {
     agent any
     stages {
-
-    stage('git clone') {
-        steps {
-            checkout scm
+        stage('git clone') {
+            steps {
+                checkout scm
+            }
         }
         stage('build and push') {
             steps {
-                script{
-                    def Dockerfile = 'mominsh/jenkinsdocker'
+                script {
+                   def DockerImage = 'mominsh/jenkinsdocker'
                     def DockerTag = 'v2'
                     def DockerCredentialID = 'dockerhub_credentials'
                     def customImage = docker.build("${dockerfile}:${DockerTag}",".")
                     docker.withRegistry('' , DockerCredentialID ) {
                         dockerBuild.Push()
-                    } 
+                    }
                 }
-            } 
-          }     
+            }
         }
     }
 }
